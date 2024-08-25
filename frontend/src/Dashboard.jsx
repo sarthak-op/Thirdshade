@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import LeadForm from "./components/form";
+import LeadForm from "./components/Form";
 
 const Dashboard = () => {
   return (

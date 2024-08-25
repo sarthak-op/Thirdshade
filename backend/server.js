@@ -115,3 +115,24 @@ app.post("/api/leads", async (req, res) => {
       .json({ error: "An error occurred while creating the lead" });
   }
 });
+
+//delete
+app.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedCount = await Lead.destroy({
+      where: { id: id },
+    });
+
+    if (deletedCount === 0) {
+      return res.status(404).json({ error: "Lead not found" });
+    }
+
+    res.status(200).json({ message: "Lead deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting lead:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the lead" });
+  }
+});

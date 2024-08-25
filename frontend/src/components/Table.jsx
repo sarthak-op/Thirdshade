@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+import DeleteButton from "./deleteButton";
 
 const LeadTable = () => {
   const [leads, setLeads] = useState([]);
@@ -35,7 +36,9 @@ const LeadTable = () => {
 
     fetchLeads();
   }, []);
-
+  const handleDelete = (deletedLeadId) => {
+    setLeads(leads.filter((lead) => lead.id !== deletedLeadId));
+  };
   return (
     <TableContainer component={Paper}>
       {error ? (
@@ -51,6 +54,7 @@ const LeadTable = () => {
               <TableCell>Lead Source</TableCell>
               <TableCell>Lead Interest</TableCell>
               <TableCell>Submitted At</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,6 +68,9 @@ const LeadTable = () => {
                 <TableCell>{lead.leadInterest}</TableCell>
                 <TableCell>
                   {new Date(lead.createdAt).toLocaleString()}
+                </TableCell>
+                <TableCell>
+                  <DeleteButton leadId={lead.id} onDelete={handleDelete} />
                 </TableCell>
               </TableRow>
             ))}
